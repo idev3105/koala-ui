@@ -10,9 +10,14 @@ import { Movie } from '@/types'
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
   movies: Movie[]
   onFocused?: (movie: Movie) => void
+  itemClassName?: string
 }
 
-export default function DefaultMovieCardList({ movies, onFocused }: DefaultMovieCardListProps) {
+export default function DefaultMovieCardList({
+  movies,
+  onFocused,
+  itemClassName,
+}: DefaultMovieCardListProps) {
   const [highlighIndex, setHighlightIndex] = useState<number | undefined>(0)
   const listRef = useRef<HTMLUListElement>(null)
 
@@ -46,7 +51,7 @@ export default function DefaultMovieCardList({ movies, onFocused }: DefaultMovie
           <li
             id={`movie-card-${index}`}
             key={index}
-            className={`carousel-item top-0 ml-8 w-2/3 snap-center snap-always scroll-ml-8 rounded md:w-1/4 lg:w-1/6 ${index == highlighIndex ? 'scale-110 transform transition-transform duration-200 ease-in-out' : null}`}
+            className={`carousel-item top-0 ml-8 w-2/3 snap-center snap-always scroll-ml-8 rounded md:w-1/4 lg:w-1/6 ${index == highlighIndex ? 'scale-110 transform transition-transform duration-200 ease-in-out' : null} ${itemClassName}`}
           >
             <VerticalMovieCard
               title={movie.title}
