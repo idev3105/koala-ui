@@ -3,31 +3,52 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  background-color: #0d0c10;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.movie-title {
+  @apply text-2xl font-bold;
+  color: white;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.movie-description {
+  @apply line-clamp-2 text-sm text-gray-300;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.btn-sm {
+  @apply h-10 px-4 py-2;
+}
+
+.btn-rounded-opacity {
+  @apply btn btn-circle btn-ghost bg-gray-900/80;
+}
+
+.btn-sm .btn-icon {
+  @apply w-4;
+}
+
+.img-movie {
+  object-fit: cover;
+}
+
+.indicator-carousel {
+  @apply inline-flex gap-2;
+}
+
+.indicator-carousel .indicator-carousel-item {
+  @apply size-2 rounded-full bg-gray-500;
+}
+
+.indicator-carousel .indicator-carousel-item.active {
+  @apply bg-secondary;
+}
+
+.title {
+  @apply text-2xl font-bold;
+  color: white;
+}
+
+.subtitle {
+  @apply text-sm;
+  color: white;
 }
