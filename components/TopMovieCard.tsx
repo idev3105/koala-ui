@@ -14,7 +14,7 @@ export default function TopMovieCard() {
         />
       </div>
       <div className="relative bottom-1/2 flex h-1/2 flex-col justify-end bg-gradient-to-t from-[#0D0B0E] via-[#0D0B0E]/80 to-[#0D0B0E]/10 px-8 pb-2">
-        <div className="w-2/5">
+        <div className="md:w-2/5">
           <div className="movie-title">Gia Thien</div>
           <div>24m</div>
           <div className="movie-description sm:line-clamp-none">

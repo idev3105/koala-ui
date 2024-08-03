@@ -28,8 +28,8 @@ export function VerticalMovieCard({ title, thumbUrl, rate, categories }: Vertica
         )}
       </div>
       <div className="relative bottom-1/4 h-1/4 rounded-md bg-gradient-to-t from-black via-black/70 to-gray-400/5 p-2">
-        <div className="absolute bottom-0">
-          <div className="font-bold text-white">{title}</div>
+        <div className="absolute bottom-0 pb-4">
+          <div className="line-clamp-1 font-bold text-white">{title}</div>
           <div className="inline-flex items-center gap-2">
             <StarIcon className="size-4 text-yellow-400" />
             <div className="sm:text-sm">{rate}</div>

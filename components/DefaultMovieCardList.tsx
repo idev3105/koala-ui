@@ -41,7 +41,7 @@ export default function DefaultMovieCardList({ movies, onFocused }: DefaultMovie
 
   return (
     <div className="h-full w-full">
-      <ul className="carousel h-full w-full gap-6 p-8" ref={listRef}>
+      <ul className="carousel h-full w-full gap-6 p-8 pl-0" ref={listRef}>
         {movies.map((movie, index) => (
           <li
             id={`movie-card-${index}`}

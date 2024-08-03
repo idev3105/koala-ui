@@ -3,4 +3,5 @@ export default interface Movie {
   title: string
   rate: number
   categories: string[]
+  description: string
 }

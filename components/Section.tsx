@@ -13,7 +13,7 @@ export default function Section({
 }: SectionProps) {
   return (
     <div className={`${className}`}>
-      <div className="title ml-2">{title}</div>
+      <div className="title ml-4">{title}</div>
       {subTitle && <div className="sub-title ml-2">{subTitle}</div>}
       <div className={`mt-2 w-full ${childrenClassName}`}>{children}</div>
     </div>
