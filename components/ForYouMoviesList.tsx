@@ -27,36 +27,50 @@ export default function ForYouMoviesSection({
   }
 
   return (
-    <div className={`${className} relative pt-4`}>
+    <div className={`${className} relative py-16`}>
       <div className="absolute top-0 z-[-1] h-full w-full">
-        <div className="relative top-[-12px] z-10 h-1/5 w-full bg-gradient-to-b from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
-        <Image fill src={focusedMovie.thumbUrl} alt="Movie thumbnail" className="blur-sm" />
+        <div className="absolute top-[-12px] z-10 h-1/5 w-full bg-gradient-to-b from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
+        <div className="absolute top-[-12px] z-10 h-full w-1/2 bg-gradient-to-r from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
+        <div className="absolute bottom-0 z-10 h-1/5 w-full bg-gradient-to-t from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
+        <Image
+          fill
+          src={focusedMovie.thumbUrl}
+          alt="Movie thumbnail"
+          className="blur-sm"
+          style={{ objectFit: 'cover' }}
+        />
       </div>
-      <div className="title ml-4 mt-8">{title}</div>
+      <div className="title ml-4">{title}</div>
       {subTitle && <div className="sub-title ml-4">{subTitle}</div>}
-      <div className={`mt-2 w-full ${childrenClassName}`}>
-        <div className="w-full, h-[22rem]">
-          <DefaultMovieCardList movies={movies} onFocused={onFocused} />
+      <div className={`mt-2 w-full gap-10 md:flex md:flex-row-reverse ${childrenClassName}`}>
+        <div className="h-full w-full md:w-3/5 md:flex-1">
+          <DefaultMovieCardList
+            movies={movies}
+            onFocused={onFocused}
+            itemClassName="md:w-2/3 lg:w-1/3"
+          />
         </div>
-        <div className="mt-8 flex flex-col gap-4 p-4">
-          <div className="title line-clamp-1 font-bold">{focusedMovie.title}</div>
-          <div className="inline-flex items-center gap-2">
-            <StarIcon className="size-4 text-yellow-400" />
-            <div className="sm:text-sm">{focusedMovie.rate}</div>
-            <div> | </div>
-            <div className="sm:text-sm">{focusedMovie.categories?.at(0)}</div>
+        <div className="md:w-2/5">
+          <div className="mt-8 flex flex-col gap-4 p-4">
+            <div className="title line-clamp-1 font-bold">{focusedMovie.title}</div>
+            <div className="inline-flex items-center gap-2">
+              <StarIcon className="size-4 text-yellow-400" />
+              <div className="sm:text-sm">{focusedMovie.rate}</div>
+              <div> | </div>
+              <div className="sm:text-sm">{focusedMovie.categories?.at(0)}</div>
+            </div>
+            <div className="line-clamp-6">{focusedMovie.description}</div>
           </div>
-          <div className="line-clamp-6">{focusedMovie.description}</div>
-        </div>
-        <div className="mt-4 flex gap-4 px-4 sm:w-2/5 sm:px-8">
-          <button className="btn btn-primary btn-sm flex-1">
-            <PlayCircleIcon className="btn-icon" />
-            <div>Watch Now</div>
-          </button>
-          <button className="btn btn-outline btn-sm flex-1">
-            <BookmarkIcon className="btn-icon" />
-            <div>Add Watchlist</div>
-          </button>
+          <div className="mt-4 flex gap-4 px-4 sm:w-full sm:px-8">
+            <button className="btn btn-primary btn-sm flex-1">
+              <PlayCircleIcon className="btn-icon" />
+              <div>Watch Now</div>
+            </button>
+            <button className="btn btn-outline btn-sm flex-1">
+              <BookmarkIcon className="btn-icon" />
+              <div>Add Watchlist</div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
