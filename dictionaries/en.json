@@ -1,0 +1,16 @@
+{
+  "common": {
+    "home": "Home",
+    "popular": "Popular",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "search": "Search"
+  },
+  "languages": {
+    "en": "English",
+    "vn": "Vietnamese"
+  }
+}

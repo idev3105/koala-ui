@@ -1,0 +1,16 @@
+{
+  "common": {
+    "home": "Trang chủ",
+    "popular": "Phổ biến",
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "darkMode": "Chế độ tối",
+    "language": "Ngôn ngữ",
+    "search": "Tìm kiếm"
+  },
+  "languages": {
+    "en": "Tiếng Anh",
+    "vn": "Tiếng Việt"
+  }
+}
