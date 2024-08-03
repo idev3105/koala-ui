@@ -38,7 +38,11 @@ export default function Home() {
       <Section className="mt-12" childrenClassName="h-36" title="Popular Of The Week">
         <RankMovieCardList />
       </Section>
-      <ForYouMoviesSection className="mt-12" movies={forYouMovies} childrenClassName="h-[30rem]" />
+      <ForYouMoviesSection
+        className="mt-12 h-fit"
+        movies={forYouMovies}
+        childrenClassName="lg:h-[30rem] h-[22rem]"
+      />
     </main>
   )
 }
