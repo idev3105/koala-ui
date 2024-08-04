@@ -3,10 +3,9 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import TopBar from '@/components/TopBar'
-import Menu from '@/components/Menu'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
-import { TopMovieList } from '@/components/TopMovieList'
+import { SessionProvider } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,14 +26,16 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>
-            <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-black via-black/70 to-gray-900/5">
-              <TopBar />
-            </header>
-            <div className="w-full">{children}</div>
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <SessionProvider>
+          <NextIntlClientProvider messages={messages}>
+            <ThemeProvider>
+              <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-black via-black/70 to-gray-900/5">
+                <TopBar />
+              </header>
+              <div className="w-full">{children}</div>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   )

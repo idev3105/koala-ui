@@ -7,7 +7,11 @@
     "logout": "Logout",
     "darkMode": "Dark Mode",
     "language": "Language",
-    "search": "Search"
+    "search": "Search",
+    "hello": "Hello",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
   },
   "languages": {
     "en": "English",
