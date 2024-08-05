@@ -1,5 +1,21 @@
-import NextAuth, { User } from 'next-auth'
+import NextAuth, { CredentialsSignin, User } from 'next-auth'
 import credentials from 'next-auth/providers/credentials'
+import 'next-auth/jwt'
+import * as AuthService from '@/services/auth.service'
+
+declare module 'next-auth' {
+  interface Session {
+    idToken: string
+    accessToken: string
+    refreshToken: string
+  }
+
+  interface User {
+    idToken: string
+    accessToken: string
+    refreshToken: string
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
@@ -13,14 +29,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         // TODO: Implement your authentication logic here
+
         if (credentials.email != 'test@mail.com' && credentials.password != 'test') {
-          throw new Error('Invalid credentials')
+          throw new CredentialsSignin('Invalid credentials')
         }
 
-        let user: User = {
+        const response = await AuthService.signIn(
+          credentials.email as string,
+          credentials.password as string,
+        )
+
+        let user = {
           id: 'test-user-id',
           name: 'Test User',
           email: 'test@mail.com',
+          idToken: response.idToken,
+          accessToken: response.accessToken,
+          refreshToken: response.refreshToken,
         }
 
         return user
@@ -29,21 +54,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     jwt({ token, user, trigger, session, account }) {
-      console.log('jwt callback user', user)
-      console.log('jwt callback account', account)
-      console.log('jwt callback token', token)
       if (user) {
         token.id = user.id
+        token.accessToken = user.accessToken
       }
-      if (account) {
+      if (account?.access_token) {
         token.accessToken = account.access_token
       }
       return token
     },
     session({ session, token }) {
-      console.log('session callback token', token)
-      session.accessToken = token.accessToken
-      session.user.id = token.id
+      session.accessToken = token.accessToken as string
+      session.user.id = token.id as string
       return session
     },
   },
