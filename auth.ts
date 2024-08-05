@@ -57,6 +57,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id
         token.accessToken = user.accessToken
+        token.idToken = user.idToken
+        token.refreshToken = user.refreshToken
       }
       if (account?.access_token) {
         token.accessToken = account.access_token
@@ -65,6 +67,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     session({ session, token }) {
       session.accessToken = token.accessToken as string
+      session.idToken = token.idToken as string
+      session.refreshToken = token.refreshToken as string
       session.user.id = token.id as string
       return session
     },
