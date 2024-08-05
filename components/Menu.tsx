@@ -13,6 +13,9 @@ export default function Menu({ onMenuClick }: MenuProps) {
   const t = useTranslations('common')
   const session = useSession()
 
+  // Show session in browser console, you can get token from here to debug
+  console.log('Debug session', session)
+
   const handleSignIn = () => {
     const options = {
       callbackUrl: '/',
