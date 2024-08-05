@@ -1,5 +1,5 @@
 import NextAuth, { CredentialsSignin, User } from 'next-auth'
-import credentials from 'next-auth/providers/credentials'
+import Credentials from 'next-auth/providers/credentials'
 import 'next-auth/jwt'
 import * as AuthService from '@/services/auth.service'
 
@@ -20,7 +20,7 @@ declare module 'next-auth' {
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
   providers: [
-    credentials({
+    Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
