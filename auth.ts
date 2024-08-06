@@ -21,8 +21,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
   providers: [
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
         email: {},
         password: {},
@@ -39,10 +37,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           credentials.password as string,
         )
 
+        // TODO: This is only fake user
         let user = {
           id: 'test-user-id',
           name: 'Test User',
           email: 'test@mail.com',
+          image: 'http://exaple.com/demo.jpg',
           idToken: response.idToken,
           accessToken: response.accessToken,
           refreshToken: response.refreshToken,
@@ -53,18 +53,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt({ token, user, trigger, session, account }) {
+    // this callback will generate JWT token from what you return
+    jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
-        token.accessToken = user.accessToken
-        token.idToken = user.idToken
-        token.refreshToken = user.refreshToken
       }
-      if (account?.access_token) {
-        token.accessToken = account.access_token
+      if (account) {
+        // if type is credentials, get token from user which is returned from authorize()
+        // else get them from account which is parsed from OAuth2 callback
+        if (account.type == 'credentials') {
+          token.accessToken = user.accessToken
+          token.idToken = user.idToken
+          token.refreshToken = user.refreshToken
+        } else {
+          token.accessToken = account.access_token
+          token.idToken = account.id_token
+          token.refreshToken = account.refresh_token
+        }
       }
       return token
     },
+    // this callback will get claim from JWT token
+    // you can choose what information need save into session
     session({ session, token }) {
       session.accessToken = token.accessToken as string
       session.idToken = token.idToken as string
