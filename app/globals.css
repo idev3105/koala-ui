@@ -52,3 +52,7 @@
   @apply text-sm;
   color: white;
 }
+
+.zoom-in {
+  @apply scale-110 transform transition-transform duration-200 ease-in-out;
+}

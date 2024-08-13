@@ -20,3 +20,17 @@ export const findFirstVisibleItem = (e: HTMLElement) => {
 
   return highlightIndex
 }
+
+export const amountOfVisibleItems = (e: HTMLElement) => {
+  const movieCardItems = e.getElementsByClassName('carousel-item')
+  if (movieCardItems.length === 0) return
+  const sampleMovieCard = movieCardItems[0]
+  const sampleMovieCardStyle = window.getComputedStyle(sampleMovieCard)
+  const marginLeft = parseInt(sampleMovieCardStyle.getPropertyValue('margin-left'), 10)
+  const parentStype = window.getComputedStyle(e)
+  const gap = parseInt(parentStype.getPropertyValue('gap'), 10)
+  const itemWidth = sampleMovieCard.clientWidth + marginLeft + gap
+  const ratio = e.clientWidth / itemWidth
+  if (ratio < 1) return 1
+  return Math.floor(ratio)
+}

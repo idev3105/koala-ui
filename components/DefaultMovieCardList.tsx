@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { use, useEffect, useRef, useState } from 'react'
 import { NextIcon } from './icons/NextIcon'
 import { VerticalMovieCard } from './VerticalMovieCard'
 import _ from 'lodash'
-import { findFirstVisibleItem } from '@/utils/ui'
+import { findFirstVisibleItem, amountOfVisibleItems } from '@/utils/ui'
 import { Movie } from '@/types'
+import { PrevIcon } from './icons/PrevIcon'
 
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
   movies: Movie[]
@@ -18,17 +19,38 @@ export default function DefaultMovieCardList({
   onFocused,
   itemClassName,
 }: DefaultMovieCardListProps) {
-  const [highlighIndex, setHighlightIndex] = useState<number | undefined>(0)
+  const [highlighIndex, setHighlightIndex] = useState<number | undefined>(-1)
   const listRef = useRef<HTMLUListElement>(null)
 
   const debounceFindAndHighlightItem = _.debounce(() => {
     if (listRef.current) {
-      const index = findFirstVisibleItem(listRef.current)
+      const visibleItems = amountOfVisibleItems(listRef.current)
+      console.log('visible items', visibleItems)
+
+      if (!visibleItems) {
+        return
+      }
+
+      var index = -1
+      if (visibleItems == 1) {
+        index = findFirstVisibleItem(listRef.current) || 0
+      }
       setHighlightIndex(index)
-      index && index < movies.length && onFocused && onFocused(movies[index])
+      index && index < movies.length && onFocused && index >= 0 && onFocused(movies[index])
     }
   }, 50)
 
+  // initial highlight index
+  useEffect(() => {
+    if (listRef.current) {
+      const visibleItems = amountOfVisibleItems(listRef.current)
+      if (visibleItems && visibleItems == 1) {
+        setHighlightIndex(0)
+      }
+    }
+  }, [])
+
+  // update highlight index
   useEffect(() => {
     console.log('highlight index', highlighIndex)
 
@@ -44,14 +66,34 @@ export default function DefaultMovieCardList({
     }
   })
 
+  const onClickPrevious = () => {
+    if (listRef.current) {
+      listRef.current.scrollLeft -= listRef.current.clientWidth
+    }
+  }
+
+  const onClickNext = () => {
+    if (listRef.current) {
+      listRef.current.scrollLeft += listRef.current.clientWidth
+    }
+  }
+
   return (
     <div className="h-full w-full">
+      <div className="relative top-1/2 z-10 flex w-full justify-between">
+        <button className="btn-rounded-opacity ml-2" onClick={onClickPrevious}>
+          <PrevIcon className="size-4" />
+        </button>
+        <button className="btn-rounded-opacity mr-2" onClick={onClickNext}>
+          <NextIcon className="size-4" />
+        </button>
+      </div>
       <ul className="carousel h-full w-full gap-6 p-8 pl-0" ref={listRef}>
         {movies.map((movie, index) => (
           <li
             id={`movie-card-${index}`}
             key={index}
-            className={`carousel-item top-0 ml-8 w-2/3 snap-center snap-always scroll-ml-8 rounded md:w-1/4 lg:w-1/6 ${index == highlighIndex ? 'scale-110 transform transition-transform duration-200 ease-in-out' : null} ${itemClassName}`}
+            className={`carousel-item top-0 ml-8 w-2/3 snap-center snap-always scroll-ml-8 rounded md:w-1/4 lg:w-1/6 ${index == highlighIndex ? 'zoom-in' : null} ${itemClassName}`}
           >
             <VerticalMovieCard
               title={movie.title}

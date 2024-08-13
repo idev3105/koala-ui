@@ -1,4 +1,9 @@
+'use client'
+
+import { useRef } from 'react'
 import { HorizontalMovieCard } from './HorizontalMovieCard'
+import { NextIcon } from './icons/NextIcon'
+import { PrevIcon } from './icons/PrevIcon'
 
 export default function RankMovieCardList() {
   const movies = Array.from({ length: 10 }, (_, index) => ({
@@ -8,9 +13,30 @@ export default function RankMovieCardList() {
     categories: ['Action', 'Adventure'],
   }))
 
+  const listRef = useRef<HTMLUListElement>(null)
+  const onClickPrevious = () => {
+    if (listRef.current) {
+      listRef.current.scrollLeft -= listRef.current.clientWidth
+    }
+  }
+
+  const onClickNext = () => {
+    if (listRef.current) {
+      listRef.current.scrollLeft += listRef.current.clientWidth
+    }
+  }
+
   return (
     <div className="h-full w-full">
-      <ul className="carousel h-full w-full gap-6">
+      <div className="relative top-1/2 z-10 flex w-full justify-between">
+        <button className="btn-rounded-opacity ml-2" onClick={onClickPrevious}>
+          <PrevIcon className="size-4" />
+        </button>
+        <button className="btn-rounded-opacity mr-2" onClick={onClickNext}>
+          <NextIcon className="size-4" />
+        </button>
+      </div>
+      <ul className="carousel h-full w-full gap-6" ref={listRef}>
         {movies.map((movie, index) => (
           <li
             id={`rank-movie-${index}`}
