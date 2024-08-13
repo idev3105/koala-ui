@@ -1,7 +1,7 @@
-import NextAuth, { CredentialsSignin, User } from 'next-auth'
-import Credentials from 'next-auth/providers/credentials'
-import 'next-auth/jwt'
-import * as AuthService from '@/services/auth.service'
+import NextAuth from 'next-auth'
+import Keycloak from '@auth/core/providers/keycloak'
+import { JWTOptions } from 'next-auth/jwt'
+import { Adapter } from 'next-auth/adapters'
 
 declare module 'next-auth' {
   interface Session {
@@ -15,43 +15,21 @@ declare module 'next-auth' {
     accessToken: string
     refreshToken: string
   }
+
+  interface JWT {
+    id: string
+    idToken: string
+    accessToken: string
+    refreshToken: string
+    provider: string
+  }
 }
+
+const keycloakProvider = Keycloak
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   debug: true,
-  providers: [
-    Credentials({
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        // TODO: Implement your authentication logic here
-
-        if (credentials.email != 'test@mail.com' && credentials.password != 'test') {
-          throw new CredentialsSignin('Invalid credentials')
-        }
-
-        const response = await AuthService.signIn(
-          credentials.email as string,
-          credentials.password as string,
-        )
-
-        // TODO: This is only fake user
-        let user = {
-          id: 'test-user-id',
-          name: 'Test User',
-          email: 'test@mail.com',
-          image: 'http://exaple.com/demo.jpg',
-          idToken: response.idToken,
-          accessToken: response.accessToken,
-          refreshToken: response.refreshToken,
-        }
-
-        return user
-      },
-    }),
-  ],
+  providers: [keycloakProvider],
   callbacks: {
     // this callback will generate JWT token from what you return
     jwt({ token, user, account }) {
@@ -59,17 +37,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = user.id
       }
       if (account) {
-        // if type is credentials, get token from user which is returned from authorize()
-        // else get them from account which is parsed from OAuth2 callback
-        if (account.type == 'credentials') {
-          token.accessToken = user.accessToken
-          token.idToken = user.idToken
-          token.refreshToken = user.refreshToken
-        } else {
-          token.accessToken = account.access_token
-          token.idToken = account.id_token
-          token.refreshToken = account.refresh_token
-        }
+        token.accessToken = account.access_token
+        token.idToken = account.id_token
+        token.refreshToken = account.refresh_token
+        token.provider = account.provider
       }
       return token
     },
@@ -81,6 +52,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.refreshToken = token.refreshToken as string
       session.user.id = token.id as string
       return session
+    },
+  },
+  events: {
+    async signOut(
+      message:
+        | { session: Awaited<ReturnType<Required<Adapter>['deleteSession']>> }
+        | { token: Awaited<ReturnType<JWTOptions['decode']>> },
+    ) {
+      const { token } = message as { token: Awaited<ReturnType<JWTOptions['decode']>> }
+      if (token) {
+        try {
+          // sign out from keycloak
+          const params = new URLSearchParams()
+          params.append('id_token_hint', token.idToken as string)
+          const url = `${process.env.AUTH_KEYCLOAK_ISSUER}/protocol/openid-connect/logout?${params.toString()}`
+          await fetch(url, {
+            method: 'GET',
+          })
+        } catch (error) {
+          console.error('Failed to sign out from keycloak', error)
+        }
+      }
     },
   },
 })
