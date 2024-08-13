@@ -79,15 +79,19 @@ export default function DefaultMovieCardList({
   }
 
   return (
-    <div className="h-full w-full">
-      <div className="relative top-1/2 z-10 flex w-full justify-between">
-        <button className="btn-rounded-opacity ml-2" onClick={onClickPrevious}>
-          <PrevIcon className="size-4" />
-        </button>
-        <button className="btn-rounded-opacity mr-2" onClick={onClickNext}>
-          <NextIcon className="size-4" />
-        </button>
-      </div>
+    <div className="relative h-full w-full">
+      <button
+        className="simple-btn-rounded-opacity absolute top-1/2 z-10 -translate-y-1/2"
+        onClick={onClickPrevious}
+      >
+        <PrevIcon className="size-4" />
+      </button>
+      <button
+        className="simple-btn-rounded-opacity absolute right-0 top-1/2 z-10 -translate-y-1/2"
+        onClick={onClickNext}
+      >
+        <NextIcon className="size-4" />
+      </button>
       <ul className="carousel h-full w-full gap-6 p-8 pl-0" ref={listRef}>
         {movies.map((movie, index) => (
           <li

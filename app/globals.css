@@ -56,3 +56,12 @@
 .zoom-in {
   @apply scale-110 transform transition-transform duration-200 ease-in-out;
 }
+
+.simple-btn-rounded-opacity {
+  background-color: rgb(17 24 39 / 0.8);
+  @apply inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full;
+}
+
+.simple-btn-rounded-opacity:hover {
+  background-color: var(--fallback-bc, oklch(var(--bc) / 0.2));
+}

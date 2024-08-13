@@ -28,9 +28,9 @@ export function TopMovieList() {
   }
 
   return (
-    <div className="h-full w-full">
+    <div className="relative h-full w-full">
       <div className="h-4/5 w-full">
-        <ul className="carousel h-full w-full overflow-hidden">
+        <ul className="carousel h-full w-full">
           {topMovies.map((movie, index) => (
             <li
               ref={(e) => {
@@ -57,14 +57,18 @@ export function TopMovieList() {
       <div className="relative mt-2 flex w-full justify-center py-2 sm:bottom-6 sm:left-[90%] sm:w-12">
         <CarouselIndicator activeIndex={currentIndex} total={topMovies.length} />
       </div>
-      <div className="relative bottom-2/3 flex w-full justify-between">
-        <button className="btn-rounded-opacity ml-2" onClick={onClickPrevious}>
-          <PrevIcon className="size-4" />
-        </button>
-        <button className="btn-rounded-opacity mr-2" onClick={onClickNext}>
-          <NextIcon className="size-4" />
-        </button>
-      </div>
+      <button
+        className="simple-btn-rounded-opacity absolute top-1/2 z-10 -translate-y-1/2"
+        onClick={onClickPrevious}
+      >
+        <PrevIcon className="size-4" />
+      </button>
+      <button
+        className="simple-btn-rounded-opacity absolute right-0 top-1/2 z-10 -translate-y-1/2"
+        onClick={onClickNext}
+      >
+        <NextIcon className="size-4" />
+      </button>
     </div>
   )
 }
