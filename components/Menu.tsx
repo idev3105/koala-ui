@@ -20,7 +20,7 @@ export default function Menu({ onMenuClick }: MenuProps) {
     const options = {
       callbackUrl: '/',
     }
-    signIn(undefined, options)
+    signIn('keycloak', options)
   }
 
   const handleSignOut = () => {
