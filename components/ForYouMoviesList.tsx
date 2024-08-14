@@ -48,7 +48,7 @@ export default function ForYouMoviesSection({
           <DefaultMovieCardList
             movies={movies}
             onFocused={onFocused}
-            itemClassName="md:w-2/3 lg:w-1/3 first:ml-20 sm:first:ml-8"
+            itemClassName="md:w-2/3 lg:w-1/3 first:ml-20 sm:first:pl-8"
           />
         </div>
         <div className="md:w-2/5">

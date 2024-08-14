@@ -8,7 +8,6 @@ import { findFirstVisibleItem, amountOfVisibleItems } from '@/utils/ui'
 import { Movie } from '@/types'
 import { PrevIcon } from './icons/PrevIcon'
 import './default-movie-list.css'
-import SolidPlusIcon from './icons/SolidPlusIcon'
 import PlusIcon from './icons/PlusIcon'
 
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -100,7 +99,7 @@ export default function DefaultMovieCardList({
           <li
             id={`movie-card-${index}`}
             key={index}
-            className={`movie-card carousel-item top-0 w-2/3 snap-center snap-always rounded ${index == highlighIndex ? 'zoom-in' : ''} ${itemClassName}`}
+            className={`movie-card carousel-item top-0 w-2/3 snap-center snap-always rounded sm:snap-start ${index == highlighIndex ? 'zoom-in' : ''} ${itemClassName}`}
           >
             <VerticalMovieCard
               title={movie.title}

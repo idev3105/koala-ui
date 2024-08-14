@@ -33,7 +33,10 @@ export default function Home() {
         <TopMovieList />
       </div>
       <Section className="mt-4" childrenClassName="h-[22rem]" title="Just Release">
-        <DefaultMovieCardList movies={releaseMovies} itemClassName="md:w-1/4 lg:w-1/6 first:ml-8" />
+        <DefaultMovieCardList
+          movies={releaseMovies}
+          itemClassName="md:w-1/4 lg:w-1/6 first:ml-8 sm:first:pl-8"
+        />
       </Section>
       <Section className="mt-12" childrenClassName="h-36" title="Popular Of The Week">
         <RankMovieCardList />
