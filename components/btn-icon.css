@@ -1,0 +1,11 @@
+.btn-icon {
+  @apply btn h-10 px-4 py-2;
+}
+
+.btn-icon > .icon {
+  @apply w-4;
+}
+
+.btn-icon > .title {
+  font-size: unset;
+}

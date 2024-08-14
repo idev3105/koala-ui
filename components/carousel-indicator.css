@@ -1,0 +1,11 @@
+.indicator-carousel {
+  @apply inline-flex gap-2;
+}
+
+.indicator-carousel .indicator-carousel-item {
+  @apply size-2 rounded-full bg-gray-500;
+}
+
+.indicator-carousel .indicator-carousel-item.active {
+  @apply bg-secondary;
+}

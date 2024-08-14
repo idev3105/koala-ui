@@ -1,3 +1,5 @@
+import './carousel-indicator.css'
+
 export function CarouselIndicator({ activeIndex, total }: { activeIndex: number; total: number }) {
   return (
     <ul className="indicator-carousel">

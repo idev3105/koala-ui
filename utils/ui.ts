@@ -5,7 +5,9 @@ export const findFirstVisibleItem = (e: HTMLElement) => {
   const movieCardItems = e.getElementsByClassName('carousel-item')
   if (movieCardItems.length === 0) return
 
-  const sampleMovieCard = movieCardItems[0]
+  if (movieCardItems.length === 1) return 0
+
+  const sampleMovieCard = movieCardItems[1]
 
   const scrollLeft = e.scrollLeft
 

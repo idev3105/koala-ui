@@ -29,25 +29,25 @@ export default function RankMovieCardList() {
   return (
     <div className="relative h-full w-full">
       <button
-        className="simple-btn-rounded-opacity absolute top-1/2 z-10 -translate-y-1/2"
+        className="simple-btn-rounded-opacity absolute left-2 top-1/2 z-10 -translate-y-1/2"
         onClick={onClickPrevious}
       >
         <PrevIcon className="size-4" />
       </button>
       <button
-        className="simple-btn-rounded-opacity absolute right-0 top-1/2 z-10 -translate-y-1/2"
+        className="simple-btn-rounded-opacity absolute right-2 top-1/2 z-10 -translate-y-1/2"
         onClick={onClickNext}
       >
         <NextIcon className="size-4" />
       </button>
-      <ul className="carousel h-full w-full gap-6" ref={listRef}>
+      <ul className="carousel h-full w-full gap-6 pl-8" ref={listRef}>
         {movies.map((movie, index) => (
           <li
             id={`rank-movie-${index}`}
             key={index}
-            className="carousel-item ml-8 inline-flex w-2/3 scroll-ml-8 md:w-1/5"
+            className="carousel-item inline-flex w-2/3 snap-center snap-always first:ml-16 sm:first:ml-8 md:w-1/5"
           >
-            <div className="flex w-1/5 snap-always items-center justify-items-center">
+            <div className="flex w-1/5 items-center justify-items-center">
               <div className="text-center text-3xl font-bold text-white">{index + 1}</div>
             </div>
             <HorizontalMovieCard

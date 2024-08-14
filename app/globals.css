@@ -15,32 +15,8 @@
   @apply line-clamp-2 text-sm text-gray-300;
 }
 
-.btn-sm {
-  @apply h-10 px-4 py-2;
-}
-
 .btn-rounded-opacity {
   @apply btn btn-circle btn-ghost bg-gray-900/80;
-}
-
-.btn-sm .btn-icon {
-  @apply w-4;
-}
-
-.img-movie {
-  object-fit: cover;
-}
-
-.indicator-carousel {
-  @apply inline-flex gap-2;
-}
-
-.indicator-carousel .indicator-carousel-item {
-  @apply size-2 rounded-full bg-gray-500;
-}
-
-.indicator-carousel .indicator-carousel-item.active {
-  @apply bg-secondary;
 }
 
 .title {

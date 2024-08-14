@@ -1,12 +1,12 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { CarouselIndicator } from './CarouselIndicator'
 import TopMovieCard from './TopMovieCard'
 import { useRef, useState } from 'react'
 import { NextIcon } from './icons/NextIcon'
 import { PrevIcon } from './icons/PrevIcon'
 import { PlayCircleIcon, BookmarkIcon } from '@heroicons/react/24/outline'
+import './btn-icon.css'
 
 export function TopMovieList() {
   const topMovies = [0, 1, 2, 3, 4] // TODO: fake top movies list
@@ -45,13 +45,13 @@ export function TopMovieList() {
         </ul>
       </div>
       <div className="mt-4 flex gap-4 px-4 sm:w-2/5 sm:px-8">
-        <button className="btn btn-primary btn-sm flex-1">
-          <PlayCircleIcon className="btn-icon" />
-          <div>Watch Now</div>
+        <button className="btn-icon !btn-primary flex-1">
+          <PlayCircleIcon className="icon" />
+          <div className="title">Watch Now</div>
         </button>
-        <button className="btn btn-outline btn-sm flex-1">
-          <BookmarkIcon className="btn-icon" />
-          <div>Add Watchlist</div>
+        <button className="btn-icon !btn-outline flex-1">
+          <BookmarkIcon className="icon" />
+          <div className="title">Add Watchlist</div>
         </button>
       </div>
       <div className="relative mt-2 flex w-full justify-center py-2 sm:bottom-6 sm:left-[90%] sm:w-12">

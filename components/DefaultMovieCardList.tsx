@@ -1,12 +1,15 @@
 'use client'
 
-import { use, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NextIcon } from './icons/NextIcon'
 import { VerticalMovieCard } from './VerticalMovieCard'
 import _ from 'lodash'
 import { findFirstVisibleItem, amountOfVisibleItems } from '@/utils/ui'
 import { Movie } from '@/types'
 import { PrevIcon } from './icons/PrevIcon'
+import './default-movie-list.css'
+import SolidPlusIcon from './icons/SolidPlusIcon'
+import PlusIcon from './icons/PlusIcon'
 
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
   movies: Movie[]
@@ -81,23 +84,23 @@ export default function DefaultMovieCardList({
   return (
     <div className="relative h-full w-full">
       <button
-        className="simple-btn-rounded-opacity absolute top-1/2 z-10 -translate-y-1/2"
+        className="simple-btn-rounded-opacity absolute left-2 top-1/2 z-10 -translate-y-1/2"
         onClick={onClickPrevious}
       >
         <PrevIcon className="size-4" />
       </button>
       <button
-        className="simple-btn-rounded-opacity absolute right-0 top-1/2 z-10 -translate-y-1/2"
+        className="simple-btn-rounded-opacity absolute right-2 top-1/2 z-10 -translate-y-1/2"
         onClick={onClickNext}
       >
         <NextIcon className="size-4" />
       </button>
-      <ul className="carousel h-full w-full gap-6 p-8 pl-0" ref={listRef}>
+      <ul className="carousel h-full w-full gap-6 py-8 pr-8" ref={listRef}>
         {movies.map((movie, index) => (
           <li
             id={`movie-card-${index}`}
             key={index}
-            className={`carousel-item top-0 ml-8 w-2/3 snap-center snap-always scroll-ml-8 rounded md:w-1/4 lg:w-1/6 ${index == highlighIndex ? 'zoom-in' : null} ${itemClassName}`}
+            className={`movie-card carousel-item top-0 w-2/3 snap-center snap-always rounded ${index == highlighIndex ? 'zoom-in' : ''} ${itemClassName}`}
           >
             <VerticalMovieCard
               title={movie.title}
@@ -107,9 +110,12 @@ export default function DefaultMovieCardList({
             />
           </li>
         ))}
-        <li key="end" className="carousel-item flex w-1/3 items-center justify-center px-4">
-          <button className="btn btn-circle btn-ghost bg-gray-600">
-            <NextIcon className="size-8" />
+        <li
+          key="end"
+          className={`carousel-item mr-12 inline-flex w-fit items-center justify-center`}
+        >
+          <button className="btn btn-circle btn-ghost size-16 bg-gray-600 px-4">
+            <PlusIcon className="h-full w-full" />
           </button>
         </li>
       </ul>

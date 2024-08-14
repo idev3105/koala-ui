@@ -10,7 +10,7 @@ export default function TopMovieCard() {
           fill
           alt="Movie poster"
           src="https://i.pinimg.com/originals/e5/aa/44/e5aa44a099d39aeb7a87d7edbde53699.jpg"
-          className="img-movie"
+          className="object-cover"
         />
       </div>
       <div className="relative bottom-1/2 flex h-1/2 flex-col justify-end bg-gradient-to-t from-[#0D0B0E] via-[#0D0B0E]/80 to-[#0D0B0E]/10 px-8 pb-2">
