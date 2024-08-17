@@ -1,7 +1,9 @@
 .zoom-in {
-  @apply scale-110 transform transition-transform duration-200 ease-in-out;
+  @apply scale-105 transform transition-transform duration-500 ease-in-out;
 }
 
-.movie-card:hover {
-  @apply zoom-in;
+@media screen and (min-width: 768px) {
+  .movie-card:hover {
+    @apply zoom-in;
+  }
 }

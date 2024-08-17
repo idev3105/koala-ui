@@ -13,12 +13,14 @@ import PlusIcon from './icons/PlusIcon'
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
   movies: Movie[]
   onFocused?: (movie: Movie) => void
+  onClicked?: (movie: Movie) => void
   itemClassName?: string
 }
 
 export default function DefaultMovieCardList({
   movies,
   onFocused,
+  onClicked,
   itemClassName,
 }: DefaultMovieCardListProps) {
   const [highlighIndex, setHighlightIndex] = useState<number | undefined>(-1)
@@ -100,6 +102,8 @@ export default function DefaultMovieCardList({
             id={`movie-card-${index}`}
             key={index}
             className={`movie-card carousel-item top-0 w-2/3 snap-center snap-always rounded sm:snap-start ${index == highlighIndex ? 'zoom-in' : ''} ${itemClassName}`}
+            onClick={() => onClicked && onClicked(movie)}
+            onMouseOver={() => onFocused && onFocused(movie)}
           >
             <VerticalMovieCard
               title={movie.title}

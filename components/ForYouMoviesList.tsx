@@ -48,6 +48,7 @@ export default function ForYouMoviesSection({
           <DefaultMovieCardList
             movies={movies}
             onFocused={onFocused}
+            onClicked={onFocused}
             itemClassName="md:w-2/3 lg:w-1/3 first:ml-20 sm:first:pl-8"
           />
         </div>
@@ -61,16 +62,6 @@ export default function ForYouMoviesSection({
               <div className="sm:text-sm">{focusedMovie.categories?.at(0)}</div>
             </div>
             <div className="line-clamp-6">{focusedMovie.description}</div>
-          </div>
-          <div className="mt-4 flex gap-4 px-4 sm:w-full sm:px-8">
-            <button className="btn-icon !btn-primary flex-1">
-              <PlayCircleIcon className="icon" />
-              <div className="title">Watch Now</div>
-            </button>
-            <button className="btn-icon !btn-outline flex-1">
-              <BookmarkIcon className="icon" />
-              <div className="title">Add Watchlist</div>
-            </button>
           </div>
         </div>
       </div>

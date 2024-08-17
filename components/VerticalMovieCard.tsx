@@ -1,6 +1,7 @@
 import { PhotoIcon } from '@heroicons/react/24/outline'
-import { StarIcon } from '@heroicons/react/24/solid'
+import { BookmarkIcon, PlayIcon, StarIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
+import './vertical-movie-card.css'
 
 type VerticalMovieCardProps = {
   title?: string
@@ -11,7 +12,7 @@ type VerticalMovieCardProps = {
 
 export function VerticalMovieCard({ title, thumbUrl, rate, categories }: VerticalMovieCardProps) {
   return (
-    <div className="h-full w-full rounded-md">
+    <div className="vertical-movie-card relative h-full w-full rounded-md">
       <div className="relative top-0 h-full">
         {thumbUrl && (
           <Image
@@ -37,6 +38,14 @@ export function VerticalMovieCard({ title, thumbUrl, rate, categories }: Vertica
             <div className="sm:text-sm">{categories?.at(0)}</div>
           </div>
         </div>
+      </div>
+      <div className="options absolute left-1/2 top-1/2 inline-flex h-fit w-fit -translate-x-1/3 -translate-y-1/2 items-center justify-center gap-2">
+        <button className="simple-btn-rounded-opacity !size-fit p-2">
+          <PlayIcon className="size-8" />
+        </button>
+        <button className="simple-btn-rounded-opacity !size-fit p-2">
+          <BookmarkIcon className="size-4" />
+        </button>
       </div>
     </div>
   )
