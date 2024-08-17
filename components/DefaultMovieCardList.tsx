@@ -12,16 +12,20 @@ import PlusIcon from './icons/PlusIcon'
 
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
   movies: Movie[]
+  itemClassName?: string
   onFocused?: (movie: Movie) => void
   onClicked?: (movie: Movie) => void
-  itemClassName?: string
+  onClickPlay?: (movie: Movie) => void
+  onClickBookmark?: (movie: Movie) => void
 }
 
 export default function DefaultMovieCardList({
   movies,
+  itemClassName,
   onFocused,
   onClicked,
-  itemClassName,
+  onClickPlay,
+  onClickBookmark,
 }: DefaultMovieCardListProps) {
   const [highlighIndex, setHighlightIndex] = useState<number | undefined>(-1)
   const listRef = useRef<HTMLUListElement>(null)
@@ -110,6 +114,8 @@ export default function DefaultMovieCardList({
               thumbUrl={movie.thumbUrl}
               rate={movie.rate}
               categories={movie.categories}
+              onClickPlay={() => onClickPlay && onClickPlay(movie)}
+              onClickBookmark={() => onClickBookmark && onClickBookmark(movie)}
             />
           </li>
         ))}

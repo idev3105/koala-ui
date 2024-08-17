@@ -8,9 +8,18 @@ type VerticalMovieCardProps = {
   thumbUrl?: string
   rate?: number
   categories?: string[]
+  onClickPlay?: () => void
+  onClickBookmark?: () => void
 }
 
-export function VerticalMovieCard({ title, thumbUrl, rate, categories }: VerticalMovieCardProps) {
+export function VerticalMovieCard({
+  title,
+  thumbUrl,
+  rate,
+  categories,
+  onClickPlay,
+  onClickBookmark,
+}: VerticalMovieCardProps) {
   return (
     <div className="vertical-movie-card relative h-full w-full rounded-md">
       <div className="relative top-0 h-full">
@@ -40,10 +49,16 @@ export function VerticalMovieCard({ title, thumbUrl, rate, categories }: Vertica
         </div>
       </div>
       <div className="options absolute left-1/2 top-1/2 inline-flex h-fit w-fit -translate-x-1/3 -translate-y-1/2 items-center justify-center gap-2">
-        <button className="simple-btn-rounded-opacity !size-fit p-2">
+        <button
+          className="simple-btn-rounded-opacity !size-fit p-2"
+          onClick={() => onClickPlay && onClickPlay()}
+        >
           <PlayIcon className="size-8" />
         </button>
-        <button className="simple-btn-rounded-opacity !size-fit p-2">
+        <button
+          className="simple-btn-rounded-opacity !size-fit p-2"
+          onClick={() => onClickBookmark && onClickBookmark()}
+        >
           <BookmarkIcon className="size-4" />
         </button>
       </div>
