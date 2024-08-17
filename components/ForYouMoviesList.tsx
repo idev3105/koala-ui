@@ -63,6 +63,16 @@ export default function ForYouMoviesSection({
             </div>
             <div className="line-clamp-6">{focusedMovie.description}</div>
           </div>
+          <div className="mt-4 flex gap-4 px-4 sm:hidden sm:w-full sm:px-8">
+            <button className="btn-icon !btn-primary flex-1">
+              <PlayCircleIcon className="icon" />
+              <div className="title">Watch Now</div>
+            </button>
+            <button className="btn-icon !btn-outline flex-1">
+              <BookmarkIcon className="icon" />
+              <div className="title">Add Watchlist</div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
