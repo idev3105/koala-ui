@@ -1,7 +1,6 @@
 import { PhotoIcon } from '@heroicons/react/24/outline'
 import { BookmarkIcon, PlayIcon, StarIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
-import './vertical-movie-card.css'
 
 type VerticalMovieCardProps = {
   title?: string
@@ -10,9 +9,10 @@ type VerticalMovieCardProps = {
   categories?: string[]
   onClickPlay?: () => void
   onClickBookmark?: () => void
-}
+} & React.HTMLAttributes<HTMLDivElement>
 
 export function VerticalMovieCard({
+  className,
   title,
   thumbUrl,
   rate,
@@ -21,7 +21,7 @@ export function VerticalMovieCard({
   onClickBookmark,
 }: VerticalMovieCardProps) {
   return (
-    <div className="vertical-movie-card relative h-full w-full rounded-md">
+    <div className={`vertical-movie-card group relative h-full w-full rounded-md ${className}`}>
       <div className="relative top-0 h-full">
         {thumbUrl && (
           <Image
@@ -48,15 +48,15 @@ export function VerticalMovieCard({
           </div>
         </div>
       </div>
-      <div className="options absolute left-1/2 top-1/2 inline-flex h-fit w-fit -translate-x-1/3 -translate-y-1/2 items-center justify-center gap-2">
+      <div className="absolute left-1/2 top-1/2 hidden h-fit w-fit -translate-x-1/3 -translate-y-1/2 items-center justify-center gap-2 group-hover:inline-flex">
         <button
-          className="simple-btn-rounded-opacity !size-fit p-2"
+          className="btn size-fit rounded-full border-none bg-gray-900/80 p-4"
           onClick={() => onClickPlay && onClickPlay()}
         >
           <PlayIcon className="size-8" />
         </button>
         <button
-          className="simple-btn-rounded-opacity !size-fit p-2"
+          className="btn size-fit rounded-full border-none bg-gray-900/80"
           onClick={() => onClickBookmark && onClickBookmark()}
         >
           <BookmarkIcon className="size-4" />

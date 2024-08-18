@@ -33,10 +33,7 @@ export default function Home() {
         <TopMovieList />
       </div>
       <Section className="mt-4" childrenClassName="h-[22rem]" title="Just Release">
-        <DefaultMovieCardList
-          movies={releaseMovies}
-          itemClassName="md:w-1/4 first:ml-8 sm:first:pl-8"
-        />
+        <DefaultMovieCardList movies={releaseMovies} className="sm:mx-8 sm:w-[calc(100%-4rem)]" />
       </Section>
       <ForYouMoviesSection
         className="mt-12 h-fit"

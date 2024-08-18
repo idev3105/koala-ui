@@ -19,8 +19,7 @@ export const findFirstVisibleItem = (e: HTMLElement) => {
   var highlightIndex = Math.floor(
     (scrollLeft + (sampleMovieCard.clientWidth * 3) / 4 + gap) / itemWidth,
   )
-
-  return highlightIndex
+  return highlightIndex - 1
 }
 
 export const amountOfVisibleItems = (e: HTMLElement) => {

@@ -1,7 +1,0 @@
-.vertical-movie-card > .options {
-  @apply hidden;
-}
-
-.vertical-movie-card:hover > .options {
-  @apply inline-flex;
-}

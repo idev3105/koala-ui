@@ -31,14 +31,13 @@ export default function ForYouMoviesSection({
     <div className={`${className} relative py-16`}>
       <div className="absolute top-0 z-[-1] h-full w-full">
         <div className="absolute top-[-12px] z-10 h-1/5 w-full bg-gradient-to-b from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
-        <div className="absolute top-[-12px] z-10 h-full w-1/2 bg-gradient-to-r from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
-        <div className="absolute bottom-0 z-10 h-1/5 w-full bg-gradient-to-t from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
+        <div className="absolute top-[-12px] z-10 h-[calc(100%+12px)] w-1/2 bg-gradient-to-r from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
+        <div className="absolute bottom-[-2rem] z-10 h-1/5 w-full bg-gradient-to-t from-[#0D0C10] via-[#0D0C10]/70 to-[#0D0C10]/5" />
         <Image
           fill
           src={focusedMovie.thumbUrl}
           alt="Movie thumbnail"
-          className="blur-sm"
-          style={{ objectFit: 'cover' }}
+          className="object-cover blur-sm"
         />
       </div>
       <div className="title ml-4">{title}</div>
@@ -49,7 +48,7 @@ export default function ForYouMoviesSection({
             movies={movies}
             onFocused={onFocused}
             onClicked={onFocused}
-            itemClassName="md:w-2/3 lg:w-1/3 first:ml-20 sm:first:pl-8"
+            itemClassName="lg:w-1/3"
           />
         </div>
         <div className="md:w-2/5">

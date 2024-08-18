@@ -7,7 +7,6 @@ import _ from 'lodash'
 import { findFirstVisibleItem, amountOfVisibleItems } from '@/utils/ui'
 import { Movie } from '@/types'
 import { PrevIcon } from './icons/PrevIcon'
-import './default-movie-list.css'
 import PlusIcon from './icons/PlusIcon'
 
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -21,6 +20,7 @@ type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export default function DefaultMovieCardList({
   movies,
+  className,
   itemClassName,
   onFocused,
   onClicked,
@@ -76,36 +76,31 @@ export default function DefaultMovieCardList({
 
   const onClickPrevious = () => {
     if (listRef.current) {
-      listRef.current.scrollLeft -= listRef.current.clientWidth
+      listRef.current.scrollLeft -=
+        listRef.current.clientWidth - (listRef.current.children[0].clientWidth * 2) / 3
     }
   }
 
   const onClickNext = () => {
     if (listRef.current) {
-      listRef.current.scrollLeft += listRef.current.clientWidth
+      listRef.current.scrollLeft +=
+        listRef.current.clientWidth - (listRef.current.children[0].clientWidth * 2) / 3
     }
   }
 
   return (
-    <div className="relative h-full w-full">
+    <div className={`relative inline-flex h-full w-full items-center ${className}`}>
       <button
-        className="simple-btn-rounded-opacity absolute left-2 top-1/2 z-10 -translate-y-1/2"
+        className="btn relative right-[-2px] h-16 rounded-l-lg rounded-r-none border-transparent bg-gray-800 px-2"
         onClick={onClickPrevious}
       >
         <PrevIcon className="size-4" />
       </button>
-      <button
-        className="simple-btn-rounded-opacity absolute right-2 top-1/2 z-10 -translate-y-1/2"
-        onClick={onClickNext}
-      >
-        <NextIcon className="size-4" />
-      </button>
-      <ul className="carousel h-full w-full gap-6 py-8 pr-8" ref={listRef}>
+      <ul className="carousel h-full w-full gap-4 py-8 sm:gap-8" ref={listRef}>
         {movies.map((movie, index) => (
           <li
-            id={`movie-card-${index}`}
             key={index}
-            className={`movie-card carousel-item top-0 w-2/3 snap-center snap-always rounded sm:snap-start ${index == highlighIndex ? 'zoom-in' : ''} ${itemClassName}`}
+            className={`carousel-item top-0 w-2/3 snap-center snap-always border-2 border-transparent hover:border-primary max-sm:first:ml-[50%] sm:snap-start md:w-1/4 [&.focused]:max-sm:scale-110 [&.focused]:max-sm:duration-200 ${index == highlighIndex ? 'focused' : ''} ${itemClassName}`}
             onClick={() => onClicked && onClicked(movie)}
             onMouseOver={() => onFocused && onFocused(movie)}
           >
@@ -121,13 +116,21 @@ export default function DefaultMovieCardList({
         ))}
         <li
           key="end"
-          className={`carousel-item mr-12 inline-flex w-fit items-center justify-center`}
+          className={`carousel-item top-0 w-2/3 snap-center snap-always first:ml-[50%] sm:ml-0 sm:snap-start md:w-1/4 ${itemClassName}`}
         >
-          <button className="btn btn-circle btn-ghost size-16 bg-gray-600 px-4">
-            <PlusIcon className="h-full w-full" />
-          </button>
+          <div className="inline-flex h-full w-full items-center justify-center rounded border-2 border-transparent bg-gray-800/90">
+            <button className="btn btn-circle btn-ghost size-16 bg-gray-600 px-4">
+              <PlusIcon className="h-full w-full" />
+            </button>
+          </div>
         </li>
       </ul>
+      <button
+        className="btn relative left-[-2px] h-16 rounded-l-none rounded-r-lg border-transparent bg-gray-800 px-2"
+        onClick={onClickNext}
+      >
+        <NextIcon className="size-4" />
+      </button>
     </div>
   )
 }

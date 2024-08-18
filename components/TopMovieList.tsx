@@ -58,13 +58,13 @@ export function TopMovieList() {
         <CarouselIndicator activeIndex={currentIndex} total={topMovies.length} />
       </div>
       <button
-        className="simple-btn-rounded-opacity absolute top-1/2 z-10 -translate-y-1/2"
+        className="btn absolute left-1 top-1/2 z-10 !-translate-y-1/2 rounded-full bg-gray-900/90"
         onClick={onClickPrevious}
       >
         <PrevIcon className="size-4" />
       </button>
       <button
-        className="simple-btn-rounded-opacity absolute right-0 top-1/2 z-10 -translate-y-1/2"
+        className="btn absolute right-1 top-1/2 z-10 !-translate-y-1/2 rounded-full bg-gray-900/90"
         onClick={onClickNext}
       >
         <NextIcon className="size-4" />
