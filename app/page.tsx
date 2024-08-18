@@ -1,8 +1,8 @@
 import DefaultMovieCardList from '@/components/DefaultMovieCardList'
 import ForYouMoviesSection from '@/components/ForYouMoviesList'
-import RankMovieCardList from '@/components/RankMovieCardList'
 import Section from '@/components/Section'
 import { TopMovieList } from '@/components/TopMovieList'
+import Link from 'next/link'
 
 export default function Home() {
   // TODO: this only fake data
@@ -38,8 +38,41 @@ export default function Home() {
       <ForYouMoviesSection
         className="mt-12 h-fit"
         movies={forYouMovies}
-        childrenClassName="lg:h-[30rem] h-[22rem]"
+        childrenClassName="h-[37rem] md:h-[22rem]"
       />
+      <Section className="relative mt-4" childrenClassName="h-60" title="List 1">
+        <DefaultMovieCardList
+          movies={releaseMovies}
+          className="w-1/ sm:mx-8 sm:w-[calc(100%-4rem)]"
+          itemClassName="!w-1/4 sm:!w-[12%] !ml-0"
+        />
+      </Section>
+      <div className="mt-4 flex h-60 flex-col items-center justify-center gap-2 px-4">
+        {/* TODO: use i18n here */}
+        <div className="inline-flex w-full gap-2 sm:justify-end">
+          <Link className="underline" href="/">
+            Home
+          </Link>
+          <div>/</div>
+          <Link className="underline" href="/about">
+            About
+          </Link>
+        </div>
+        <div className="w-full sm:justify-between md:inline-flex">
+          <div className="inline-flex w-full justify-between gap-6 sm:w-fit sm:justify-start">
+            <Link className="underline" href="/">
+              Privacy Policy
+            </Link>
+            <Link className="underline" href="/about">
+              Terms of Service
+            </Link>
+            <Link className="underline" href="/about">
+              Language
+            </Link>
+          </div>
+          <div className="h-fit">Copyright © idev</div>
+        </div>
+      </div>
     </main>
   )
 }

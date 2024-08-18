@@ -43,7 +43,7 @@ export default function ForYouMoviesSection({
       <div className="title ml-4">{title}</div>
       {subTitle && <div className="sub-title ml-4">{subTitle}</div>}
       <div className={`mt-2 w-full gap-10 md:flex md:flex-row-reverse ${childrenClassName}`}>
-        <div className="h-full w-full md:w-3/5 md:flex-1">
+        <div className="h-3/5 w-full md:h-full md:w-3/5 md:flex-1">
           <DefaultMovieCardList
             movies={movies}
             onFocused={onFocused}
@@ -51,7 +51,7 @@ export default function ForYouMoviesSection({
             itemClassName="lg:w-1/3"
           />
         </div>
-        <div className="md:w-2/5">
+        <div className="h-2/5 md:w-2/5">
           <div className="mt-8 flex flex-col gap-4 p-4">
             <div className="title line-clamp-1 font-bold">{focusedMovie.title}</div>
             <div className="inline-flex items-center gap-2">
@@ -60,7 +60,7 @@ export default function ForYouMoviesSection({
               <div> | </div>
               <div className="sm:text-sm">{focusedMovie.categories?.at(0)}</div>
             </div>
-            <div className="line-clamp-6">{focusedMovie.description}</div>
+            <div className="line-clamp-3 md:line-clamp-6">{focusedMovie.description}</div>
           </div>
           <div className="mt-4 flex gap-4 px-4 sm:hidden sm:w-full sm:px-8">
             <button className="btn-icon !btn-primary flex-1">
