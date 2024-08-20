@@ -2,7 +2,6 @@ import DefaultMovieCardList from '@/components/DefaultMovieCardList'
 import ForYouMoviesSection from '@/components/ForYouMoviesList'
 import Section from '@/components/Section'
 import { TopMovieList } from '@/components/TopMovieList'
-import Link from 'next/link'
 
 export default function Home() {
   // TODO: this only fake data
@@ -47,32 +46,6 @@ export default function Home() {
           itemClassName="!w-1/4 sm:!w-[12%] !ml-0"
         />
       </Section>
-      <div className="mt-4 flex h-60 flex-col items-center justify-center gap-2 px-4">
-        {/* TODO: use i18n here */}
-        <div className="inline-flex w-full gap-2 sm:justify-end">
-          <Link className="underline" href="/">
-            Home
-          </Link>
-          <div>/</div>
-          <Link className="underline" href="/about">
-            About
-          </Link>
-        </div>
-        <div className="w-full sm:justify-between md:inline-flex">
-          <div className="inline-flex w-full justify-between gap-6 sm:w-fit sm:justify-start">
-            <Link className="underline" href="/">
-              Privacy Policy
-            </Link>
-            <Link className="underline" href="/about">
-              Terms of Service
-            </Link>
-            <Link className="underline" href="/about">
-              Language
-            </Link>
-          </div>
-          <div className="h-fit">Copyright © idev</div>
-        </div>
-      </div>
     </main>
   )
 }
