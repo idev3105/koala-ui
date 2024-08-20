@@ -17,11 +17,15 @@ export function VerticalMovieCard({
   thumbUrl,
   rate,
   categories,
+  onClick,
   onClickPlay,
   onClickBookmark,
 }: VerticalMovieCardProps) {
   return (
-    <div className={`vertical-movie-card group relative h-full w-full rounded-md ${className}`}>
+    <div
+      className={`vertical-movie-card group relative h-full w-full rounded-md ${className} cursor-pointer`}
+      onClick={onClick}
+    >
       <div className="relative top-0 h-full">
         {thumbUrl && (
           <Image

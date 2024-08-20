@@ -8,6 +8,7 @@ import { findFirstVisibleItem, amountOfVisibleItems } from '@/utils/ui'
 import { Movie } from '@/types'
 import { PrevIcon } from './icons/PrevIcon'
 import PlusIcon from './icons/PlusIcon'
+import { useRouter } from 'next/navigation'
 
 type DefaultMovieCardListProps = React.HTMLAttributes<HTMLDivElement> & {
   movies: Movie[]
@@ -27,6 +28,8 @@ export default function DefaultMovieCardList({
   onClickPlay,
   onClickBookmark,
 }: DefaultMovieCardListProps) {
+  const router = useRouter()
+
   const [highlighIndex, setHighlightIndex] = useState<number | undefined>(-1)
   const listRef = useRef<HTMLUListElement>(null)
 
@@ -88,6 +91,10 @@ export default function DefaultMovieCardList({
     }
   }
 
+  const onClickMovie = (movie: Movie) => {
+    router.push(`/movies/${movie.id}`)
+  }
+
   return (
     <div className={`relative inline-flex h-full w-full items-center ${className}`}>
       <button
@@ -109,6 +116,7 @@ export default function DefaultMovieCardList({
               thumbUrl={movie.thumbUrl}
               rate={movie.rate}
               categories={movie.categories}
+              onClick={() => onClickMovie(movie)}
               onClickPlay={() => onClickPlay && onClickPlay(movie)}
               onClickBookmark={() => onClickBookmark && onClickBookmark(movie)}
             />

@@ -6,6 +6,7 @@ import { TopMovieList } from '@/components/TopMovieList'
 export default function Home() {
   // TODO: this only fake data
   const releaseMovies = Array.from({ length: 10 }, (_, index) => ({
+    id: `movie-${index}`,
     title: 'Thu Huyen dep gai qua di mat',
     thumbUrl: 'https://i.pinimg.com/originals/26/f1/d7/26f1d757f30938d12b1980085da08563.jpg',
     rate: 8.5,
@@ -15,6 +16,7 @@ export default function Home() {
   }))
 
   releaseMovies.push({
+    id: 'movie-1',
     title: 'Tru tien',
     thumbUrl: 'https://i.pinimg.com/originals/af/a7/19/afa719a6adf39412fdfe497f3136cc92.webp',
     rate: 8.5,
@@ -42,7 +44,7 @@ export default function Home() {
       <Section className="relative mt-4" childrenClassName="h-60" title="List 1">
         <DefaultMovieCardList
           movies={releaseMovies}
-          className="w-1/ sm:mx-8 sm:w-[calc(100%-4rem)]"
+          className="sm:mx-8 sm:w-[calc(100%-4rem)]"
           itemClassName="!w-1/4 sm:!w-[12%] !ml-0"
         />
       </Section>
