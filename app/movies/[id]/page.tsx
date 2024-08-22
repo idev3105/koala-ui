@@ -3,6 +3,7 @@ import '@/components/btn-icon.css'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { ArrowDownTrayIcon, BookmarkIcon, HandThumbUpIcon } from '@heroicons/react/24/outline'
 import DefaultMovieCardList from '@/components/DefaultMovieCardList'
+import DefaultEpisodeCardList from '@/components/DefaultEpisodeCardList'
 
 export default function Movie({ params }: { params: { id: string } }) {
   // TODO: this is fake movie
@@ -27,7 +28,7 @@ export default function Movie({ params }: { params: { id: string } }) {
   }))
 
   return (
-    <main className="h-full w-full">
+    <div className="h-full w-full snap-y snap-mandatory [&_div]:snap-center [&_div]:snap-always">
       <div className="relative h-[26rem] w-full md:h-[32rem]">
         <Image fill src={movie.thumbUrl} className="object-cover" alt="movie thumbnail" />
         <div className="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-end bg-gradient-to-t from-[#0D0C10] via-[#0D0C10]/50 via-50% px-4">
@@ -58,10 +59,29 @@ export default function Movie({ params }: { params: { id: string } }) {
         <div className="title">Story Line</div>
         <div>{movie.description}</div>
       </div>
-      <div className="mt-8 h-60 w-full px-4">
-        <div className="title">Related Movies</div>
-        <DefaultMovieCardList movies={relatedMovies} className="h-[22rem]" />
+      <div className="mt-8 w-full px-4">
+        <div className="inline-flex w-full justify-between">
+          <div className="title">1-9 Episode</div>
+          <select className="select select-bordered max-w-xs">
+            <option selected>Seasion 1</option>
+            <option>Seasion 2</option>
+          </select>
+        </div>
+        <DefaultEpisodeCardList
+          movies={relatedMovies}
+          className="h-[18rem] sm:h-[18rem]"
+          itemClassName="md:w-1/5"
+        />
       </div>
-    </main>
+      <div className="divider-base-300 divider h-1 w-full"></div>
+      <div className="mt-8 h-fit w-full px-4">
+        <div className="title">Related Movies</div>
+        <DefaultMovieCardList
+          movies={relatedMovies}
+          className="!h-[18rem] sm:h-[22rem]"
+          itemClassName="md:w-1/5"
+        />
+      </div>
+    </div>
   )
 }
