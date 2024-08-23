@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate_sdk": "openapi -i ./swagger.yaml -o ./server_sdk"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
@@ -32,6 +33,7 @@
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "openapi-typescript-codegen": "^0.29.0",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",

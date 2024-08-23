@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import Keycloak from '@auth/core/providers/keycloak'
 import { JWTOptions } from 'next-auth/jwt'
 import { Adapter } from 'next-auth/adapters'
+import { OpenAPI, UserService } from './server_sdk'
 
 declare module 'next-auth' {
   interface Session {
@@ -32,11 +33,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [keycloakProvider],
   callbacks: {
     // this callback will generate JWT token from what you return
-    jwt({ token, user, account }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
       }
-      if (account) {
+
+      if (account && user) {
+        // create user if not exist
+        OpenAPI.BASE = 'http://localhost:8090/api/v1' // TODO: this is hard code
+        try {
+          const userProfile = await UserService.createUser({
+            idToken: account.id_token as string,
+            username: user.name as string,
+          })
+          console.log('Create user profile after login', userProfile)
+        } catch (error) {
+          console.error('Failed to create user profile', error)
+        }
+
         token.accessToken = account.access_token
         token.idToken = account.id_token
         token.refreshToken = account.refresh_token
