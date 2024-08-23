@@ -3,6 +3,7 @@ import Keycloak from '@auth/core/providers/keycloak'
 import { JWTOptions } from 'next-auth/jwt'
 import { Adapter } from 'next-auth/adapters'
 import { OpenAPI, UserService } from './server_sdk'
+import { getServerSdkInstance as getServerSdk } from './server_sdk/server'
 
 declare module 'next-auth' {
   interface Session {
@@ -42,7 +43,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // create user if not exist
         OpenAPI.BASE = 'http://localhost:8090/api/v1' // TODO: this is hard code
         try {
-          const userProfile = await UserService.createUser({
+          const sdk = getServerSdk()
+          const userProfile = await sdk.user.createUser({
             idToken: account.id_token as string,
             username: user.name as string,
           })
