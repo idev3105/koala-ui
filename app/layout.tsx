@@ -34,6 +34,7 @@ export default async function RootLayout({
                 <TopBar />
               </header>
               <div className="w-full">{children}</div>
+              <div className="divider-base-300 divider"></div>
               <div className="mt-4 flex h-fit flex-col items-center justify-end gap-2 px-4 pb-4 pt-8">
                 <Footer />
               </div>
