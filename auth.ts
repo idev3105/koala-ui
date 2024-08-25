@@ -41,15 +41,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       if (account && user) {
         // create user if not exist
-        OpenAPI.BASE = 'http://localhost:8090/api/v1' // TODO: this is hard code
         try {
           const sdk = getServerSdk()
-          const userProfile = await sdk.user.createUser({
+          const { exist } = await sdk.user.existsUserByIdToken({
             idToken: account.id_token as string,
-            username: user.name as string,
           })
-          console.log('Create user profile after login', userProfile)
+          if (!exist) {
+            const userProfile = await sdk.user.createUser({
+              idToken: account.id_token as string,
+              username: user.name as string,
+            })
+            console.log('Create user profile after login', userProfile)
+          } else {
+            console.log('User profile already exist')
+          }
         } catch (error) {
+          // TODO: navigate to error page
           console.error('Failed to create user profile', error)
         }
 
