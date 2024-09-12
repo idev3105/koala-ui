@@ -1,6 +1,7 @@
 import { PhotoIcon } from '@heroicons/react/24/outline'
 import { BookmarkIcon, PlayIcon, StarIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
+import { useState } from 'react'
 
 type VerticalMovieCardProps = {
   title?: string
@@ -21,21 +22,25 @@ export function EpisodeCard({
   onClickPlay,
   onClickBookmark,
 }: VerticalMovieCardProps) {
+
+  const [isThumbError, setThumbError] = useState(false)
+
   return (
     <div
       className={`vertical-movie-card group relative h-full w-full rounded-md ${className} cursor-pointer`}
       onClick={onClick}
     >
       <div className="relative top-0 h-full">
-        {thumbUrl && (
+        {thumbUrl && !isThumbError && (
           <Image
             fill
             src={thumbUrl}
             alt={title || 'thumbnail'}
             className="rounded-md object-cover"
+            onError={() => setThumbError(true)} // Set error state on image load failure
           />
         )}
-        {!thumbUrl && (
+        {(isThumbError || !thumbUrl) && (
           <div className="flex h-full w-full items-center justify-center rounded-md bg-gray-400">
             <PhotoIcon className="size-8" />
           </div>
