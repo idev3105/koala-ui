@@ -1,6 +1,9 @@
+'use client'
+
 import { PhotoIcon } from '@heroicons/react/24/outline'
 import { BookmarkIcon, PlayIcon, StarIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
+import { useState } from 'react'
 
 type VerticalMovieCardProps = {
   title?: string
@@ -21,21 +24,27 @@ export function VerticalMovieCard({
   onClickPlay,
   onClickBookmark,
 }: VerticalMovieCardProps) {
+
+  const [imageError, setImageError] = useState(false)
+
   return (
     <div
       className={`vertical-movie-card group relative h-full w-full rounded-md ${className} cursor-pointer`}
       onClick={onClick}
     >
       <div className="relative top-0 h-full">
-        {thumbUrl && (
+        {!imageError && (
           <Image
             fill
-            src={thumbUrl}
+            src={thumbUrl || ''}
             alt={title || 'thumbnail'}
             className="rounded-md object-cover"
+            onError={(e) => {
+              setImageError(true)
+            }}
           />
         )}
-        {!thumbUrl && (
+        {imageError && (
           <div className="flex h-full w-full items-center justify-center rounded-md bg-gray-400">
             <PhotoIcon className="size-8" />
           </div>
