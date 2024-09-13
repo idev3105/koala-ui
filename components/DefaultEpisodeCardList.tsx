@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { NextIcon } from './icons/NextIcon'
+import { PrevIcon } from './icons/PrevIcon'
+import PlusIcon from './icons/PlusIcon'
 import _ from 'lodash'
 import { findFirstVisibleItem, amountOfVisibleItems } from '@/utils/ui'
 import { Movie } from '@/types'
-import { PrevIcon } from './icons/PrevIcon'
-import PlusIcon from './icons/PlusIcon'
 import { useRouter } from 'next/navigation'
 import { EpisodeCard } from './EpisodeCard'
 
@@ -29,70 +29,82 @@ export default function DefaultEpisodeCardList({
   onClickBookmark,
 }: DefaultEpisodeCardListProps) {
   const router = useRouter()
-
-  const [highlighIndex, setHighlightIndex] = useState<number | undefined>(-1)
+  const [highlightIndex, setHighlightIndex] = useState<number>(-1)
   const listRef = useRef<HTMLUListElement>(null)
+  const scrollAmountRef = useRef<number>(0)
 
-  const debounceFindAndHighlightItem = _.debounce(() => {
+  const debounceFindAndHighlightItem = useCallback(_.debounce(() => {
     if (listRef.current) {
       const visibleItems = amountOfVisibleItems(listRef.current)
-      console.log('visible items', visibleItems)
+      if (!visibleItems) return
 
-      if (!visibleItems) {
-        return
-      }
-
-      var index = -1
-      if (visibleItems == 1) {
-        index = findFirstVisibleItem(listRef.current) || 0
-      }
+      const index = visibleItems === 1 ? findFirstVisibleItem(listRef.current) || 0 : -1
       setHighlightIndex(index)
-      index && index < movies.length && onFocused && index >= 0 && onFocused(movies[index])
-    }
-  }, 50)
-
-  // initial highlight index
-  useEffect(() => {
-    if (listRef.current) {
-      const visibleItems = amountOfVisibleItems(listRef.current)
-      if (visibleItems && visibleItems == 1) {
-        setHighlightIndex(0)
+      if (index >= 0 && index < movies.length && onFocused) {
+        onFocused(movies[index])
       }
+    }
+  }, 50), [movies, onFocused])
+
+  const calculateScrollAmount = useCallback(() => {
+    if (listRef.current) {
+      const listWidth = listRef.current.clientWidth
+      const itemWidth = listRef.current.children[0].clientWidth
+      return listWidth - (itemWidth * 2) / 3
+    }
+    return 0
+  }, [])
+
+  const scrollList = useCallback((direction: 'prev' | 'next') => {
+    if (!listRef.current) return
+
+    if (scrollAmountRef.current === 0) {
+      scrollAmountRef.current = calculateScrollAmount()
+    }
+
+    const startPosition = listRef.current.scrollLeft
+    const distance = direction === 'next' ? scrollAmountRef.current : -scrollAmountRef.current
+    const duration = 300 // ms
+    let start: number | null = null
+
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp
+      const progress = timestamp - start
+      const percentage = Math.min(progress / duration, 1)
+      const easeInOutCubic = percentage < 0.5
+        ? 4 * percentage * percentage * percentage
+        : 1 - Math.pow(-2 * percentage + 2, 3) / 2
+
+      listRef.current!.scrollLeft = startPosition + distance * easeInOutCubic
+
+      if (progress < duration) {
+        requestAnimationFrame(step)
+      }
+    }
+
+    requestAnimationFrame(step)
+  }, [calculateScrollAmount])
+
+  useEffect(() => {
+    if (listRef.current && amountOfVisibleItems(listRef.current) === 1) {
+      setHighlightIndex(0)
     }
   }, [])
 
-  // update highlight index
   useEffect(() => {
-    console.log('highlight index', highlighIndex)
-
-    if (!listRef.current) {
-      return
-    }
-
     const listElement = listRef.current
-    listElement.addEventListener('scroll', debounceFindAndHighlightItem)
+    if (!listElement) return
 
-    return () => {
-      listElement.removeEventListener('scroll', debounceFindAndHighlightItem)
-    }
-  })
+    listElement.addEventListener('scroll', debounceFindAndHighlightItem)
+    return () => listElement.removeEventListener('scroll', debounceFindAndHighlightItem)
+  }, [debounceFindAndHighlightItem])
 
   const onClickPrevious = () => {
-    if (listRef.current) {
-      listRef.current.scrollLeft -=
-        listRef.current.clientWidth - (listRef.current.children[0].clientWidth * 2) / 3
-    }
+    scrollList('prev')
   }
 
   const onClickNext = () => {
-    if (listRef.current) {
-      listRef.current.scrollLeft +=
-        listRef.current.clientWidth - (listRef.current.children[0].clientWidth * 2) / 3
-    }
-  }
-
-  const onClickMovie = (movie: Movie) => {
-    router.push(`/movies/${movie.id}`)
+    scrollList('next')
   }
 
   return (
@@ -106,19 +118,17 @@ export default function DefaultEpisodeCardList({
       <ul className="carousel h-full w-full gap-4 py-8 sm:gap-8" ref={listRef}>
         {movies.map((movie, index) => (
           <li
-            key={index}
-            className={`carousel-item top-0 w-2/3 snap-center snap-always border-2 border-transparent hover:border-primary max-sm:first:ml-[50%] sm:snap-start md:w-1/4 [&.focused]:max-sm:scale-110 [&.focused]:max-sm:duration-200 ${index == highlighIndex ? 'focused' : ''} ${itemClassName}`}
-            onClick={() => onClicked && onClicked(movie)}
-            onMouseOver={() => onFocused && onFocused(movie)}
+            key={movie.id}
+            className={`carousel-item top-0 w-2/3 snap-center snap-always border-2 border-transparent hover:border-primary max-sm:first:ml-[50%] sm:snap-start md:w-1/4 ${index === highlightIndex ? 'focused max-sm:scale-110 max-sm:duration-200' : ''
+              } ${itemClassName}`}
+            onClick={() => onClicked?.(movie)}
+            onMouseOver={() => onFocused?.(movie)}
           >
             <EpisodeCard
-              title={movie.title}
-              thumbUrl={movie.thumbUrl}
-              rate={movie.rate}
-              categories={movie.categories}
-              onClick={() => onClickMovie(movie)}
-              onClickPlay={() => onClickPlay && onClickPlay(movie)}
-              onClickBookmark={() => onClickBookmark && onClickBookmark(movie)}
+              {...movie}
+              onClick={() => router.push(`/movies/${movie.id}`)}
+              onClickPlay={() => onClickPlay?.(movie)}
+              onClickBookmark={() => onClickBookmark?.(movie)}
             />
           </li>
         ))}
