@@ -9,7 +9,7 @@ type HorizontalMovieCardProps = {
   categories?: string[]
 }
 
-import { useState } from 'react'; // Add this import
+import { useState } from 'react' // Add this import
 
 export function HorizontalMovieCard({
   title,
@@ -17,7 +17,7 @@ export function HorizontalMovieCard({
   rate,
   categories,
 }: HorizontalMovieCardProps) {
-  const [isThumbError, setThumbError] = useState(false); // Add state for image error
+  const [isThumbError, setThumbError] = useState(false) // Add state for image error
 
   return (
     <div className="flex h-full w-full flex-shrink gap-2">

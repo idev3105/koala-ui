@@ -22,7 +22,6 @@ export function EpisodeCard({
   onClickPlay,
   onClickBookmark,
 }: VerticalMovieCardProps) {
-
   const [isThumbError, setThumbError] = useState(false)
 
   return (

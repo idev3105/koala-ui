@@ -6,12 +6,7 @@ export default function TopMovieCard() {
   return (
     <div className="h-full w-full">
       <div className="relative top-0 h-full w-full">
-        <Image
-          fill
-          alt="Movie poster"
-          src="https://i.pinimg.com/originals/e5/aa/44/e5aa44a099d39aeb7a87d7edbde53699.jpg"
-          className="object-cover"
-        />
+        <Image fill alt="Movie poster" src="/movie_thumb_test_1.png" className="object-cover" />
       </div>
       <div className="relative bottom-1/2 flex h-1/2 flex-col justify-end bg-gradient-to-t from-[#0D0B0E] via-[#0D0B0E]/80 to-[#0D0B0E]/10 px-8 pb-2">
         <div className="md:w-2/5">

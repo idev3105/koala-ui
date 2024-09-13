@@ -8,7 +8,7 @@ export default function Home() {
   const releaseMovies = Array.from({ length: 10 }, (_, index) => ({
     id: `movie-${index}`,
     title: 'Thu Huyen dep gai qua di mat',
-    thumbUrl: 'https://i.pinimg.com/originals/26/f1/d7/26f1d757f30938d12b1980085da08563.jpg',
+    thumbUrl: `/movie_thumb_test_${(index % 2) + 1}.png`,
     rate: 8.5,
     categories: ['Action', 'Adventure'],
     description:
@@ -18,7 +18,7 @@ export default function Home() {
   releaseMovies.push({
     id: 'movie-1',
     title: 'Tru tien',
-    thumbUrl: 'https://i.pinimg.com/originals/af/a7/19/afa719a6adf39412fdfe497f3136cc92.webp',
+    thumbUrl: `/movie_thumb_test_1.png`,
     rate: 8.5,
     categories: ['Action', 'Adventure'],
     description:

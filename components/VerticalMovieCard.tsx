@@ -24,7 +24,6 @@ export function VerticalMovieCard({
   onClickPlay,
   onClickBookmark,
 }: VerticalMovieCardProps) {
-
   const [imageError, setImageError] = useState(false)
 
   return (

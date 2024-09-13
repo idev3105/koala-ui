@@ -33,18 +33,21 @@ export default function DefaultEpisodeCardList({
   const listRef = useRef<HTMLUListElement>(null)
   const scrollAmountRef = useRef<number>(0)
 
-  const debounceFindAndHighlightItem = useCallback(_.debounce(() => {
-    if (listRef.current) {
-      const visibleItems = amountOfVisibleItems(listRef.current)
-      if (!visibleItems) return
+  const debounceFindAndHighlightItem = useCallback(
+    _.debounce(() => {
+      if (listRef.current) {
+        const visibleItems = amountOfVisibleItems(listRef.current)
+        if (!visibleItems) return
 
-      const index = visibleItems === 1 ? findFirstVisibleItem(listRef.current) || 0 : -1
-      setHighlightIndex(index)
-      if (index >= 0 && index < movies.length && onFocused) {
-        onFocused(movies[index])
+        const index = visibleItems === 1 ? findFirstVisibleItem(listRef.current) || 0 : -1
+        setHighlightIndex(index)
+        if (index >= 0 && index < movies.length && onFocused) {
+          onFocused(movies[index])
+        }
       }
-    }
-  }, 50), [movies, onFocused])
+    }, 50),
+    [movies, onFocused],
+  )
 
   const calculateScrollAmount = useCallback(() => {
     if (listRef.current) {
@@ -55,35 +58,39 @@ export default function DefaultEpisodeCardList({
     return 0
   }, [])
 
-  const scrollList = useCallback((direction: 'prev' | 'next') => {
-    if (!listRef.current) return
+  const scrollList = useCallback(
+    (direction: 'prev' | 'next') => {
+      if (!listRef.current) return
 
-    if (scrollAmountRef.current === 0) {
-      scrollAmountRef.current = calculateScrollAmount()
-    }
-
-    const startPosition = listRef.current.scrollLeft
-    const distance = direction === 'next' ? scrollAmountRef.current : -scrollAmountRef.current
-    const duration = 300 // ms
-    let start: number | null = null
-
-    const step = (timestamp: number) => {
-      if (!start) start = timestamp
-      const progress = timestamp - start
-      const percentage = Math.min(progress / duration, 1)
-      const easeInOutCubic = percentage < 0.5
-        ? 4 * percentage * percentage * percentage
-        : 1 - Math.pow(-2 * percentage + 2, 3) / 2
-
-      listRef.current!.scrollLeft = startPosition + distance * easeInOutCubic
-
-      if (progress < duration) {
-        requestAnimationFrame(step)
+      if (scrollAmountRef.current === 0) {
+        scrollAmountRef.current = calculateScrollAmount()
       }
-    }
 
-    requestAnimationFrame(step)
-  }, [calculateScrollAmount])
+      const startPosition = listRef.current.scrollLeft
+      const distance = direction === 'next' ? scrollAmountRef.current : -scrollAmountRef.current
+      const duration = 300 // ms
+      let start: number | null = null
+
+      const step = (timestamp: number) => {
+        if (!start) start = timestamp
+        const progress = timestamp - start
+        const percentage = Math.min(progress / duration, 1)
+        const easeInOutCubic =
+          percentage < 0.5
+            ? 4 * percentage * percentage * percentage
+            : 1 - Math.pow(-2 * percentage + 2, 3) / 2
+
+        listRef.current!.scrollLeft = startPosition + distance * easeInOutCubic
+
+        if (progress < duration) {
+          requestAnimationFrame(step)
+        }
+      }
+
+      requestAnimationFrame(step)
+    },
+    [calculateScrollAmount],
+  )
 
   useEffect(() => {
     if (listRef.current && amountOfVisibleItems(listRef.current) === 1) {
@@ -119,8 +126,9 @@ export default function DefaultEpisodeCardList({
         {movies.map((movie, index) => (
           <li
             key={movie.id}
-            className={`carousel-item top-0 w-2/3 snap-center snap-always border-2 border-transparent hover:border-primary max-sm:first:ml-[50%] sm:snap-start md:w-1/4 ${index === highlightIndex ? 'focused max-sm:scale-110 max-sm:duration-200' : ''
-              } ${itemClassName}`}
+            className={`carousel-item top-0 w-2/3 snap-center snap-always border-2 border-transparent hover:border-primary max-sm:first:ml-[50%] sm:snap-start md:w-1/4 ${
+              index === highlightIndex ? 'focused max-sm:scale-110 max-sm:duration-200' : ''
+            } ${itemClassName}`}
             onClick={() => onClicked?.(movie)}
             onMouseOver={() => onFocused?.(movie)}
           >
