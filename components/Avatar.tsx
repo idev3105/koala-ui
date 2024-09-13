@@ -6,40 +6,27 @@ interface AvatarProps {
   rounded?: 'small' | 'medium' | 'large' | 'full'
 }
 
-export default function Avatar({ src, size = 'medium', rounded }: AvatarProps) {
-  var sizeClass = 'w-8'
-  switch (size) {
-    case 'small':
-      sizeClass = 'w-6'
-      break
-    case 'medium':
-      sizeClass = 'w-8'
-      break
-    case 'large':
-      sizeClass = 'w-11'
-      break
-  }
+const sizeClasses = {
+  small: 'w-6',
+  medium: 'w-8',
+  large: 'w-11',
+}
 
-  var roundClass = undefined
-  switch (rounded) {
-    case 'small':
-      roundClass = 'rounded-sm'
-      break
-    case 'medium':
-      roundClass = 'rounded-md'
-      break
-    case 'large':
-      roundClass = 'rounded-lg'
-      break
-    case 'full':
-      roundClass = 'rounded-full'
-      break
-  }
+const roundClasses = {
+  small: 'rounded-sm',
+  medium: 'rounded-md',
+  large: 'rounded-lg',
+  full: 'rounded-full',
+}
+
+export default function Avatar({ src, size = 'medium', rounded }: AvatarProps) {
+  const sizeClass = sizeClasses[size]
+  const roundClass = rounded ? roundClasses[rounded] : ''
 
   return (
     <div className="avatar">
       <div className={`relative top-0 ${sizeClass} ${roundClass}`}>
-        <Image src={src} alt="avatar" fill={true} />
+        <Image src={src} alt="avatar" fill />
       </div>
     </div>
   )
