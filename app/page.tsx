@@ -10,6 +10,7 @@ export default function Home() {
     title: 'Thu Huyen dep gai qua di mat',
     thumbUrl: `/movie_thumb_test_${(index % 2) + 1}.png`,
     rate: 8.5,
+    trailerUrl: '/test.mp4',
     categories: ['Action', 'Adventure'],
     description:
       'Một chàng trai thành đạt được bạn bè yêu quý. Trong một lần họp mặt cùng nhóm bạn, một sự cố huyền ảo đã xảy ra và đưa cả nhóm bạn quay trở về thời cổ đại, thời kỳ tồn tại của những vị thần. Nơi đó, mọi mâu thuẫn chỉ có thể giải quyết bằng sức mạnh…Có tồn tại thế giới thần tiên này ư? Có phải đây chỉ là những truyền thuyết hay sự tích ? Những gì nhìn thấy là sự thật hay là ảo mộng.',
@@ -20,6 +21,7 @@ export default function Home() {
     title: 'Tru tien',
     thumbUrl: `/movie_thumb_test_1.png`,
     rate: 8.5,
+    trailerUrl: '/test.mp4',
     categories: ['Action', 'Adventure'],
     description:
       'Một chàng trai thành đạt được bạn bè yêu quý. Trong một lần họp mặt cùng nhóm bạn, một sự cố huyền ảo đã xảy ra và đưa cả nhóm bạn quay trở về thời cổ đại, thời kỳ tồn tại của những vị thần. Nơi đó, mọi mâu thuẫn chỉ có thể giải quyết bằng sức mạnh…Có tồn tại thế giới thần tiên này ư? Có phải đây chỉ là những truyền thuyết hay sự tích ? Những gì nhìn thấy là sự thật hay là ảo mộng.',

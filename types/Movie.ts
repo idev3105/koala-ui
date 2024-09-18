@@ -5,4 +5,5 @@ export default interface Movie {
   rate: number
   categories: string[]
   description: string
+  trailerUrl: string
 }
