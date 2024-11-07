@@ -1,0 +1,6 @@
+{
+    "npm.packageManager": "pnpm",
+    "i18n-ally.localesPaths": [
+        "dictionaries"
+    ]
+}
