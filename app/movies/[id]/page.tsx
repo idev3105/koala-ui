@@ -4,6 +4,7 @@ import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { ArrowDownTrayIcon, BookmarkIcon, HandThumbUpIcon } from '@heroicons/react/24/outline'
 import DefaultMovieCardList from '@/components/DefaultMovieCardList'
 import DefaultEpisodeCardList from '@/components/DefaultEpisodeCardList'
+import TrailerPlayer from '@/components/TrailerPlayer'
 
 export default function Movie({ params }: { params: { id: string } }) {
   // TODO: this is fake movie
@@ -59,7 +60,12 @@ export default function Movie({ params }: { params: { id: string } }) {
       </div>
       <div className="mt-8 w-full px-4">
         <div className="title">Story Line</div>
-        <div>{movie.description}</div>
+        <div className="flex items-start gap-4">
+          <div className="h-auto flex-1">
+            <TrailerPlayer trailerUrl={movie.trailerUrl} />
+          </div>
+          <div className="flex-1">{movie.description}</div>
+        </div>
       </div>
       <div className="mt-8 w-full px-4">
         <div className="inline-flex w-full justify-between">
