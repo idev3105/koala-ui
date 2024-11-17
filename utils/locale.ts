@@ -11,10 +11,12 @@ const COOKIE_NAME = 'NEXT_LOCALE'
 const { defaultLocale } = i18n_config
 
 export async function getUserLocale() {
-  return cookies().get(COOKIE_NAME)?.value || defaultLocale
+  const ck = await cookies()
+  ck.get(COOKIE_NAME)?.value || defaultLocale
 }
 
 export async function setUserLocale(locale: Locale) {
-  cookies().set(COOKIE_NAME, locale)
+  const ck = await cookies()
+  ck.set(COOKIE_NAME, locale)
   revalidatePath('/')
 }

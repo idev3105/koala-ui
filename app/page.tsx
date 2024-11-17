@@ -17,7 +17,7 @@ export default function Home() {
   }))
 
   releaseMovies.push({
-    id: 'movie-1',
+    id: 'movie-11',
     title: 'Tru tien',
     thumbUrl: `/movie_thumb_test_1.png`,
     rate: 8.5,

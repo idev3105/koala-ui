@@ -31,64 +31,13 @@ export default function Movie({ params }: { params: { id: string } }) {
   }))
 
   return (
-    <div className="h-full w-full snap-y snap-mandatory [&_div]:snap-center [&_div]:snap-always">
-      <div className="relative h-[26rem] w-full md:h-[32rem]">
-        <Image fill src={movie.thumbUrl} className="object-cover" alt="movie thumbnail" />
-        <div className="absolute left-0 top-0 z-10 flex h-full w-full flex-col justify-end bg-gradient-to-t from-[#0D0C10] via-[#0D0C10]/50 via-50% px-4">
-          <div className="movie-title">{movie.title}</div>
-          <div className="mt-4 inline-flex justify-between">
-            <div className="inline-flex gap-2 md:w-1/2">
-              <button className="btn-icon !btn-primary flex-1">
-                <PlayCircleIcon className="icon" />
-                <div className="title">Watch Now</div>
-              </button>
-              <button className="btn-icon !btn-outline md:flex-1">
-                <BookmarkIcon className="icon" />
-                <div className="title max-md:hidden">Add Watchlist</div>
-              </button>
-            </div>
-            <div className="inline-flex gap-2">
-              <button className="btn-icon !btn-outline">
-                <HandThumbUpIcon className="icon" />
-              </button>
-              <button className="btn-icon !btn-outline">
-                <ArrowDownTrayIcon className="icon" />
-              </button>
-            </div>
-          </div>
+    <div className="h-full w-full">
+      <div className="title">Story Line</div>
+      <div className="flex items-start gap-4">
+        <div className="h-auto flex-1">
+          <TrailerPlayer trailerUrl={movie.trailerUrl} />
         </div>
-      </div>
-      <div className="mt-8 w-full px-4">
-        <div className="title">Story Line</div>
-        <div className="flex items-start gap-4">
-          <div className="h-auto flex-1">
-            <TrailerPlayer trailerUrl={movie.trailerUrl} />
-          </div>
-          <div className="flex-1">{movie.description}</div>
-        </div>
-      </div>
-      <div className="mt-8 w-full px-4">
-        <div className="inline-flex w-full justify-between">
-          <div className="title">1-9 Episode</div>
-          <select className="select select-bordered max-w-xs">
-            <option selected>Seasion 1</option>
-            <option>Seasion 2</option>
-          </select>
-        </div>
-        <DefaultEpisodeCardList
-          movies={relatedMovies}
-          className="h-[18rem] sm:h-[18rem]"
-          itemClassName="md:w-1/5"
-        />
-      </div>
-      <div className="divider-base-300 divider h-1 w-full"></div>
-      <div className="mt-8 h-fit w-full px-4">
-        <div className="title">Related Movies</div>
-        <DefaultMovieCardList
-          movies={relatedMovies}
-          className="!h-[18rem] sm:h-[22rem]"
-          itemClassName="md:w-1/5"
-        />
+        <div className="flex-1">{movie.description}</div>
       </div>
     </div>
   )

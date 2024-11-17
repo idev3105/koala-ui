@@ -134,7 +134,7 @@ export default function DefaultEpisodeCardList({
           >
             <EpisodeCard
               {...movie}
-              onClick={() => router.push(`/movies/${movie.id}`)}
+              onClick={() => router.push(`/movies/tru_tien/tap_48`)}
               onClickPlay={() => onClickPlay?.(movie)}
               onClickBookmark={() => onClickBookmark?.(movie)}
             />

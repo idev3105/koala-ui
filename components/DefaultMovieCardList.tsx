@@ -109,7 +109,6 @@ export default function DefaultMovieCardList({
             thumbUrl={movie.thumbUrl}
             rate={movie.rate}
             categories={movie.categories}
-            trailerUrl={movie.trailerUrl}
             description={movie.description}
             onClick={() => onClickMovie(movie)}
             onClickPlay={() => onClickPlay?.(movie)}
